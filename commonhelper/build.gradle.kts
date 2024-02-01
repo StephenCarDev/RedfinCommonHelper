@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.stephen.commonhelper"
-    compileSdk = 32
+    compileSdk = 33
 
     defaultConfig {
         minSdk = 30
