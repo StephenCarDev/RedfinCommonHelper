@@ -1,4 +1,4 @@
-package com.stephen.common
+package com.stephen.redfincommonhelper
 
 import org.junit.Test
 

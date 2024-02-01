@@ -37,14 +37,14 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
     kotlinOptions {
-        jvmTarget = "17"
+        jvmTarget = "1.8"
     }
-    val appName = "CommonHelper"
-    val versionName = "1.0.3"
+    val appName = "RedfinCommonHelper"
+    val versionName = "1.0.4"
     android.libraryVariants.configureEach {
         val buildType = this.buildType.name
         outputs.all {

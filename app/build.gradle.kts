@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.stephen.common"
+    namespace = "com.stephen.redfincommonhelper"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.stephen.common"
+        applicationId = "com.stephen.redfincommonhelper"
         minSdk = 30
         targetSdk = 34
         versionCode = 1
