@@ -9,3 +9,7 @@ buildscript {
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.8.10")
     }
 }
+
+plugins { id("maven-publish") }
+
+group = "com.github.StephenCarDev"
