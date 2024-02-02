@@ -5,6 +5,6 @@ plugins {
     id("com.android.library") version "8.2.0" apply false
 }
 
-tasks.register("clean"){
+tasks.register("clean") {
     delete("build")
 }
