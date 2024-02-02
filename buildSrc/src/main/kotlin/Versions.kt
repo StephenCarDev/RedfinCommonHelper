@@ -23,7 +23,7 @@ object Versions {
     const val mmkv = "1.3.2"
     const val datastore = "1.0.0"
 
-    const val ktxlifecycle = "2.6.0"
+    const val ktxlifecycle = "2.6.1"
 
     const val leakcanary = "2.12"
 }
