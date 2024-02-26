@@ -4,6 +4,11 @@ plugins {
     `maven-publish`
 }
 
+val versionName = "1.0.11"
+
+group = "com.github.StephenCarDev"
+version = versionName
+
 android {
     namespace = "com.stephen.commonhelper"
     compileSdk = 34
@@ -44,12 +49,11 @@ android {
     }
 
     val appName = "RedfinCommonHelper"
-    val versionName = "1.0.11"
     android.libraryVariants.configureEach {
         val buildType = this.buildType.name
         outputs.all {
             if (this is com.android.build.gradle.internal.api.LibraryVariantOutputImpl) {
-                this.outputFileName = "${appName}_${versionName}_${buildType}.aar"
+                this.outputFileName = "${appName}_${version}_${buildType}.aar"
             }
         }
     }
@@ -75,4 +79,17 @@ dependencies {
     implementation("com.google.protobuf:protobuf-java:3.19.4")
 
     implementation("org.eclipse.paho:org.eclipse.paho.client.mqttv3:1.2.5")
+}
+
+afterEvaluate {
+    publishing {
+        publications {
+            create<MavenPublication>("release") {
+                from(components.findByName("release"))
+                groupId = "com.github.StephenCarDev"
+                artifactId = "RedfinCommonHelper"
+                version = versionName
+            }
+        }
+    }
 }
