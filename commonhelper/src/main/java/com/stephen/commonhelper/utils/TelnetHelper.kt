@@ -55,7 +55,7 @@ object TelnetHelper {
     }
 
     fun sendCommand(command: String) {
-        debugLog("执行指令：$command")
+        debugLog("execute ：$command")
         try {
             write(command)
             readUntil("$prompt ")

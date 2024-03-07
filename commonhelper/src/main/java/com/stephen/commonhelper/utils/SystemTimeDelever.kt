@@ -22,7 +22,6 @@ object SystemTimeDelever {
                 }
             }
         }
-
     }
 
     fun initTimeListen(context: Context) {
@@ -30,6 +29,9 @@ object SystemTimeDelever {
     }
 
     fun release(context: Context) {
+        if (listeners.size > 0) {
+            listeners.clear()
+        }
         context.unregisterReceiver(timeReceiver)
     }
 

@@ -1,29 +1,28 @@
 package com.stephen.commonhelper.utils
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.ComponentName
+import android.content.Context
 import android.content.Intent
 import android.graphics.PixelFormat
 import android.os.Environment
 import android.os.storage.StorageManager
-import android.util.TypedValue
 import android.view.Gravity
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.view.WindowManager
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
-import com.stephen.commonhelper.base.appContext
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import kotlin.math.absoluteValue
 
 
 // 跳转应用
-fun jumpToAnotherApp(packageName: String, activityName: String? = null) {
-    appContext.run {
+fun jumpToAnotherApp(context: Context, packageName: String, activityName: String? = null) {
+    context.run {
         // 无MainActivity可能会报错
         try {
             startActivity(
@@ -41,27 +40,16 @@ fun jumpToAnotherApp(packageName: String, activityName: String? = null) {
 }
 
 /**
- * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
- */
-fun Float.dp2px() = TypedValue.applyDimension(
-    TypedValue.COMPLEX_UNIT_DIP,
-    this,
-    appContext.resources.displayMetrics
-)
-
-fun showSimpleToast(text: String) {
-    Toast.makeText(appContext, text, Toast.LENGTH_SHORT).show()
-}
-
-/**
  * view animation
+ * 默认从无到有，0f to 1f
  */
-fun View.fadeInAnimation() {
+fun View.fadeInAnimation(duration: Int, startAlpha: Float = 0f, endAplha: Float = 1f) {
+    val delta = endAplha - startAlpha
     MainScope().launch {
-        delay(500L)
-        repeat(200) {
+        alpha = startAlpha
+        repeat(duration) {
             delay(1L)
-            alpha = (it * 0.005).toFloat()
+            alpha = startAlpha + delta * (it.toFloat() / duration)
         }
     }
 }
@@ -70,6 +58,7 @@ fun View.fadeInAnimation() {
  * 初始化窗口参数
  */
 fun getLayouutParams(
+    context: Context,
     windowType: Int,
     isAutoCenter: Boolean,
     startCoordinateX: Int = 800,
@@ -87,7 +76,7 @@ fun getLayouutParams(
         height = WindowManager.LayoutParams.MATCH_PARENT
         gravity = Gravity.START or Gravity.TOP
         //悬浮窗的开始位置，因为设置的是从左上角开始，所以屏幕左上角是x=0;y=0
-        val dm = appContext.resources.displayMetrics
+        val dm = context.resources.displayMetrics
         val screenWidth = dm.widthPixels
         val screenHeight = dm.heightPixels
         x = if (isAutoCenter) (screenWidth - width) / 2 else startCoordinateX
@@ -95,9 +84,9 @@ fun getLayouutParams(
         format = PixelFormat.TRANSLUCENT
     }
 
-fun getUSBDir(): String? {
+fun getUSBDir(context: Context): String? {
     infoLog()
-    val storageManager = appContext.getSystemService(StorageManager::class.java)
+    val storageManager = context.getSystemService(StorageManager::class.java)
     storageManager.storageVolumes.forEach {
         // u盘一般识别为isRemovable的设备，但Pixel5上为isEmulated，待考察
         if (it.isEmulated) {
@@ -122,8 +111,7 @@ fun getCrruentTime(): String {
 /**
  * 全屏，遮住Dock与状态栏
  */
-@SuppressLint("Deprecated")
-fun AppCompatActivity.setFullScreenMode() {
+fun Activity.setFullScreenMode() {
     val layoutParams = window.attributes
     layoutParams.layoutInDisplayCutoutMode =
         WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
@@ -131,8 +119,8 @@ fun AppCompatActivity.setFullScreenMode() {
     window.insetsController?.apply {
         systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         hide(WindowInsets.Type.systemBars())
-        hide(WindowInsets.Type.statusBars())
-        hide(WindowInsets.Type.navigationBars())
+//        hide(WindowInsets.Type.statusBars())
+//        hide(WindowInsets.Type.navigationBars())
     }
 }
 

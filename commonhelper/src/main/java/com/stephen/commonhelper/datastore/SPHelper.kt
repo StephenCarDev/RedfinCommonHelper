@@ -2,7 +2,6 @@ package com.stephen.commonhelper.datastore
 
 import android.content.Context
 import android.content.SharedPreferences
-import com.stephen.commonhelper.base.appContext
 import com.stephen.commonhelper.utils.infoLog
 
 
@@ -13,14 +12,14 @@ import com.stephen.commonhelper.utils.infoLog
  */
 object SPHelper {
 
-    private val share: SharedPreferences
+    private lateinit var share: SharedPreferences
 
-    private val editor: SharedPreferences.Editor
+    private lateinit var editor: SharedPreferences.Editor
 
     private const val SHARED_NAME = "SPHelper"
 
-    init {
-        share = appContext.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
+    fun init(context: Context) {
+        share = context.getSharedPreferences(SHARED_NAME, Context.MODE_PRIVATE);
         editor = share.edit();
     }
 

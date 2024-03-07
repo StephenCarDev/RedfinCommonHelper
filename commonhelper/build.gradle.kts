@@ -4,7 +4,7 @@ plugins {
     `maven-publish`
 }
 
-val versionName = "1.0.11"
+val versionName = "2.0.0"
 
 group = "com.github.StephenCarDev"
 version = versionName

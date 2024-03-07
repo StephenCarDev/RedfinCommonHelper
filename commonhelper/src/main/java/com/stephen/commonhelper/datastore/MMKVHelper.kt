@@ -1,6 +1,6 @@
 package com.stephen.commonhelper.datastore
 
-import com.stephen.commonhelper.base.appContext
+import android.content.Context
 import com.stephen.commonhelper.utils.infoLog
 import com.tencent.mmkv.MMKV
 
@@ -13,8 +13,8 @@ object MMKVHelper {
 
     private lateinit var mmkv: MMKV
 
-    fun init(databaseId: String, isMultiProcess: Boolean) {
-        val rootDir = MMKV.initialize(appContext)
+    fun init(context: Context,databaseId: String, isMultiProcess: Boolean) {
+        val rootDir = MMKV.initialize(context)
         infoLog("MMKV rootDir: $rootDir")
         mmkv =
             if (isMultiProcess) MMKV.mmkvWithID(databaseId, MMKV.MULTI_PROCESS_MODE)

@@ -18,6 +18,4 @@ abstract class BaseActivity<T : ViewBinding> : AppCompatActivity() {
 
     protected abstract fun setBinding(): T
 
-    protected fun setFullScreen() = setFullScreenMode()
-
 }
